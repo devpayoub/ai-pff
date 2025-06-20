@@ -6,21 +6,22 @@ import { Progress } from '@/components/ui/progress'
 import FormContainer from './_components/FormContainer'
 import QuestionList from './_components/QuestionList'
 import { toast } from 'sonner'
+import InterviewLink from './_components/InterviewLink'
 
 function CreateInterview() {
   const route = useRouter()
-  const [step, setStep] = useState(1)
-
+  const [step, setStep] = useState(1);
+  const [interviewId, setInterviewId] = useState();
   const [formData, setFormData] = useState({
     jobPosition: '',
     jobDescription: '',
     interviewDuration: '',
     type: []
-  })
+  });
 
   useEffect(() => {
     console.log(formData)
-  }, [formData])
+  }, [formData]);
 
   const onHandelInputChange = (field, value) => {
     setFormData(prev => ({
@@ -39,9 +40,12 @@ function CreateInterview() {
       toast('Please enter all details!')
       return
     }
-    setStep(step + 1)
+    setStep(step + 1);
   }
-  
+  const onCreateLink = (interview_id) => {
+    setInterviewId(interview_id);
+    setStep(step + 1);
+  }
 
 
   return (
@@ -56,7 +60,10 @@ function CreateInterview() {
         onHandelInputChange={onHandelInputChange}
         GoToNext={() => onGoToNext()}
       />
-      : step == 2 ? <QuestionList formData={formData} /> : null}
+        : step == 2 ? <QuestionList formData={formData} onCreateLink={(interview_id) => onCreateLink(interview_id)} /> :
+          step == 3 ? <InterviewLink interview_id={interviewId}
+            fromData={formData}
+          /> : null}
     </div>
   )
 }
