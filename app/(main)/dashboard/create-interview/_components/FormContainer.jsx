@@ -55,10 +55,10 @@ function FormContainer({ formData, onHandelInputChange ,GoToNext}) {
             <SelectValue placeholder="Select Duration" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="15 Min">5 Min</SelectItem>
-            <SelectItem value="30 Min">10 Min</SelectItem>
-            <SelectItem value="45 Min">15 Min</SelectItem>
-            <SelectItem value="60 Min">20 Min</SelectItem>
+            <SelectItem value="5 Min">5 Min</SelectItem>
+            <SelectItem value="10 Min">10 Min</SelectItem>
+            <SelectItem value="15 Min">15 Min</SelectItem>
+            <SelectItem value="20 Min">20 Min</SelectItem>
           </SelectContent>
         </Select>
       </div>
