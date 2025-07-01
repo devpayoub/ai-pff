@@ -3,7 +3,7 @@
 </p>
 <p align="center"><h1 align="center">AI-PFF</h1></p>
 <p align="center">
-	<em>A Next.js full-stack web application with modern React architecture and server-side capabilities.</em>
+	<em>Next.js full-stack web application with modern React architecture and server-side capabilities.</em>
 </p>
 <p align="center">
 	<img src="https://img.shields.io/github/license/devpayoub/ai-pff?style=default&logo=opensourceinitiative&logoColor=white&color=0080ff" alt="license">
