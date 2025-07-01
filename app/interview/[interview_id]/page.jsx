@@ -14,12 +14,12 @@ function Interview() {
 
     const { interview_id } = useParams();
     console.log("Interview ID:", interview_id);
-
     const [interviewData,setInterviewData]=useState();
     const [loading, setLoading] = useState(false);
     const [userName, setUserName] = useState();
-    const [InterviewInfo, setInterviewInfo]=useContext(InterviewDataContext);
+    const { interviewInfo, setInterviewInfo } = useContext(InterviewDataContext);
     const router = useRouter();
+
     useEffect(() => { 
         interview_id && GetInterviewDetails();
      }, [interview_id]);
@@ -41,20 +41,35 @@ function Interview() {
 
     const onJoinInterview = async () => {
         setLoading(true);
-        let { data: Interviews, error } = await supabase
+        try {
+          let { data: Interviews, error } = await supabase
             .from('Interviews')
             .select('*')
-            .eq('interview_id', interview_id)
-        
-        console.log(Interviews[0]);
-        setInterviewInfo({
-            userName:userName,
-            interviewData:Interviews[0]
-        });
-
-        router.push('/interview/' + interview_id + '/start');
-        setLoading(false);
-    }
+            .eq('interview_id', interview_id);
+          
+          if (error) throw error;
+          if (!Interviews || Interviews.length === 0) {
+            throw new Error("Interview not found");
+          }
+      
+          console.log('Setting interview info:', {
+            userName,
+            interviewData: Interviews[0]
+          });
+      
+          setInterviewInfo({
+            userName: userName,
+            interviewData: Interviews[0]
+          });
+      
+          router.push(`/interview/${interview_id}/start`);
+        } catch (error) {
+          console.error('Error joining interview:', error);
+          toast.error(error.message || "Failed to join interview");
+        } finally {
+          setLoading(false);
+        }
+      };
 
     return (
         <div className='px-10 md:px-28 lg:px-48 xl:px-80 mt-7 '>
